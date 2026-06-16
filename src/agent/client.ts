@@ -15,7 +15,9 @@ declare global {
 
 export function getAnthropic(): Anthropic {
   if (!global.__taliAnthropic) {
-    global.__taliAnthropic = new Anthropic({ apiKey: getEnv().ANTHROPIC_API_KEY });
+    const apiKey = getEnv().ANTHROPIC_API_KEY;
+    if (!apiKey) throw new Error("ANTHROPIC_API_KEY is not configured");
+    global.__taliAnthropic = new Anthropic({ apiKey });
   }
   return global.__taliAnthropic;
 }

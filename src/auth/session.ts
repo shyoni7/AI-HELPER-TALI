@@ -26,10 +26,14 @@ function b64url(input: Buffer | string): string {
     .replace(/=+$/, "");
 }
 
+function getSecret(): string {
+  const secret = getEnv().AUTH_SECRET;
+  if (!secret) throw new Error("AUTH_SECRET is not configured");
+  return secret;
+}
+
 function sign(data: string): string {
-  return b64url(
-    crypto.createHmac("sha256", getEnv().AUTH_SECRET).update(data).digest(),
-  );
+  return b64url(crypto.createHmac("sha256", getSecret()).update(data).digest());
 }
 
 /** Create a signed session token for a staff user. */
@@ -49,7 +53,12 @@ export function verifySessionToken(token: string | undefined): SessionPayload | 
   const [body, sig] = token.split(".");
   if (!body || !sig) return null;
 
-  const expected = sign(body);
+  let expected: string;
+  try {
+    expected = sign(body); // throws if AUTH_SECRET is missing → treat as no session
+  } catch {
+    return null;
+  }
   // Constant-time comparison to avoid timing leaks.
   const a = Buffer.from(sig);
   const b = Buffer.from(expected);

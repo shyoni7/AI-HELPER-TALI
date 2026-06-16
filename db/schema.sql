@@ -212,3 +212,31 @@ CREATE TABLE IF NOT EXISTS auth_otp (
 );
 
 CREATE INDEX IF NOT EXISTS idx_auth_otp_phone ON auth_otp (phone, created_at DESC);
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- M3: booking_requests — client-submitted requests awaiting staff approval.
+-- A request is NOT a confirmed appointment; on approval staff creates an
+-- `appointments` row (and, later, a Google Calendar event).
+-- ─────────────────────────────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS booking_requests (
+  id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  patient_id      UUID NOT NULL REFERENCES patients(id) ON DELETE CASCADE,
+  therapist_id    UUID REFERENCES therapists(id) ON DELETE SET NULL,
+  preferred_times JSONB NOT NULL DEFAULT '[]',
+  topic           TEXT,
+  status          TEXT NOT NULL DEFAULT 'pending'
+                  CHECK (status IN ('pending', 'approved', 'declined', 'expired')),
+  handled_by      UUID REFERENCES staff_users(id) ON DELETE SET NULL,
+  appointment_id  UUID REFERENCES appointments(id) ON DELETE SET NULL,
+  created_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at      TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_booking_requests_status
+  ON booking_requests (status, created_at);
+CREATE INDEX IF NOT EXISTS idx_booking_requests_therapist
+  ON booking_requests (therapist_id);
+
+CREATE TRIGGER trg_booking_requests_updated
+  BEFORE UPDATE ON booking_requests
+  FOR EACH ROW EXECUTE FUNCTION set_updated_at();

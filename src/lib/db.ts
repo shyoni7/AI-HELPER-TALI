@@ -14,6 +14,10 @@ declare global {
 
 function createPool(): Pool {
   const { DATABASE_URL } = getEnv();
+  if (!DATABASE_URL) {
+    // Callers wrap DB access in try/catch and degrade (e.g. placeholder data).
+    throw new Error("DATABASE_URL is not configured");
+  }
   return new Pool({
     connectionString: DATABASE_URL,
     // Keep the pool small — serverless functions are short-lived and the

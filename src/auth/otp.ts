@@ -24,10 +24,9 @@ export function normalizePhone(phone: string): string {
 }
 
 function hashCode(phone: string, code: string): string {
-  return crypto
-    .createHmac("sha256", getEnv().AUTH_SECRET)
-    .update(`${phone}:${code}`)
-    .digest("hex");
+  const secret = getEnv().AUTH_SECRET;
+  if (!secret) throw new Error("AUTH_SECRET is not configured");
+  return crypto.createHmac("sha256", secret).update(`${phone}:${code}`).digest("hex");
 }
 
 export interface StaffIdentity {

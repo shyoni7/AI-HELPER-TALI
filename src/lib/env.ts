@@ -6,14 +6,18 @@
  */
 import { z } from "zod";
 
+// All external-service secrets are OPTIONAL at the schema level and enforced at
+// the point of use (getAnthropic / getPool / session). This lets the app deploy
+// and degrade gracefully when only some env vars are set (e.g. a first deploy
+// with no DB yet) instead of failing every request on a missing var.
 const schema = z.object({
-  ANTHROPIC_API_KEY: z.string().min(1, "ANTHROPIC_API_KEY is required"),
+  ANTHROPIC_API_KEY: z.string().optional(),
   ANTHROPIC_MODEL: z.string().default("claude-opus-4-8"),
 
-  DATABASE_URL: z.string().url("DATABASE_URL must be a valid connection string"),
+  DATABASE_URL: z.string().optional(),
 
   // Secret used to sign staff session tokens (HMAC). Required for the staff area.
-  AUTH_SECRET: z.string().min(16, "AUTH_SECRET must be at least 16 characters"),
+  AUTH_SECRET: z.string().optional(),
 
   // SMS provider for OTP delivery — provider chosen at M2. Optional: when unset,
   // the OTP is logged (dev) instead of sent, so the flow is testable end-to-end.

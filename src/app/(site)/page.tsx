@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { site, treatments, values } from "@/content/site";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
-import HeroCalendar from "@/components/HeroCalendar";
+import BookingCalendar from "@/components/BookingCalendar";
 
 export default function Home() {
   return (
@@ -22,7 +22,7 @@ export default function Home() {
           </div>
         }
       >
-        <HeroCalendar />
+        <BookingCalendar />
       </ContainerScroll>
 
       <section className="section">
