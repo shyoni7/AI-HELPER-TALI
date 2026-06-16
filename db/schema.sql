@@ -175,3 +175,40 @@ CREATE INDEX IF NOT EXISTS idx_conversations_session ON conversations (session_t
 CREATE TRIGGER trg_conversations_updated
   BEFORE UPDATE ON conversations
   FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- M2: staff & authentication
+-- ─────────────────────────────────────────────────────────────────────────────
+
+-- staff_users — center employees (therapists) and managers. Phone-based login.
+CREATE TABLE IF NOT EXISTS staff_users (
+  id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  -- E.164-normalized phone, the login identifier.
+  phone         TEXT NOT NULL UNIQUE,
+  full_name     TEXT NOT NULL,
+  role          TEXT NOT NULL CHECK (role IN ('therapist', 'manager')),
+  -- Link to the therapist record when role = 'therapist'.
+  therapist_id  UUID REFERENCES therapists(id) ON DELETE SET NULL,
+  active        BOOLEAN NOT NULL DEFAULT TRUE,
+  last_login_at TIMESTAMPTZ,
+  created_at    TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at    TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE TRIGGER trg_staff_users_updated
+  BEFORE UPDATE ON staff_users
+  FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+
+-- auth_otp — one-time login codes. Only an HMAC of the code is stored, never
+-- the plaintext. Short expiry + attempt cap mitigate brute force.
+CREATE TABLE IF NOT EXISTS auth_otp (
+  id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  phone       TEXT NOT NULL,
+  code_hash   TEXT NOT NULL,
+  expires_at  TIMESTAMPTZ NOT NULL,
+  attempts    INTEGER NOT NULL DEFAULT 0,
+  consumed_at TIMESTAMPTZ,
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_auth_otp_phone ON auth_otp (phone, created_at DESC);

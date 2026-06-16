@@ -12,6 +12,14 @@ const schema = z.object({
 
   DATABASE_URL: z.string().url("DATABASE_URL must be a valid connection string"),
 
+  // Secret used to sign staff session tokens (HMAC). Required for the staff area.
+  AUTH_SECRET: z.string().min(16, "AUTH_SECRET must be at least 16 characters"),
+
+  // SMS provider for OTP delivery — provider chosen at M2. Optional: when unset,
+  // the OTP is logged (dev) instead of sent, so the flow is testable end-to-end.
+  SMS_PROVIDER_API_KEY: z.string().optional(),
+  SMS_FROM: z.string().optional(),
+
   // Google Calendar — optional in Phase 0 (calendar layer is stubbed).
   GOOGLE_SERVICE_ACCOUNT_EMAIL: z.string().optional(),
   GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY: z.string().optional(),

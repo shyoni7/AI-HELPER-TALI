@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import SiteHeader from "@/components/SiteHeader";
-import SiteFooter from "@/components/SiteFooter";
-import ChatWidget from "@/components/ChatWidget";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -10,6 +7,9 @@ export const metadata: Metadata = {
   description: site.intro,
 };
 
+// Root layout holds only the html/body shell. Section-specific chrome lives in
+// the (site) and staff layouts so the staff area doesn't inherit the marketing
+// header/footer/chat widget.
 export default function RootLayout({
   children,
 }: {
@@ -17,12 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="he" dir="rtl">
-      <body>
-        <SiteHeader />
-        <main>{children}</main>
-        <SiteFooter />
-        <ChatWidget />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

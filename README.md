@@ -42,11 +42,20 @@ src/
 
 ```bash
 npm install
-cp .env.example .env          # מלאו ANTHROPIC_API_KEY ו-DATABASE_URL לכל הפחות
+cp .env.example .env          # מלאו ANTHROPIC_API_KEY, DATABASE_URL ו-AUTH_SECRET
 npm run db:migrate            # החלת db/schema.sql
 npm run db:seed               # מטפלי דמו (אופציונלי)
 npm run dev                   # http://localhost:3000
 ```
+
+### אזור צוות (M2)
+התחברות הצוות היא בטלפון + קוד חד-פעמי (OTP). יצירת משתמש צוות ראשון (מנהל):
+
+```bash
+node --env-file=.env scripts/add-staff.mjs --phone 0500000000 --name "מנהל/ת" --role manager
+```
+
+כניסה דרך `/staff/login`. ללא ספק SMS מוגדר, קוד ה-OTP מודפס ל-console (פיתוח בלבד).
 
 בדיקות איכות:
 

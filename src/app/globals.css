@@ -257,3 +257,38 @@ p {
   border: 1px solid var(--border);
   font-size: 0.95rem;
 }
+
+/* ── Staff area (M2) ─────────────────────────────────────────────────────── */
+.staff-auth {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: linear-gradient(180deg, var(--sand) 0%, var(--bg) 100%);
+}
+.field {
+  display: block;
+  margin-top: 0.9rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+.field input {
+  display: block;
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font-size: 1.05rem;
+}
+.staff-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.staff-header .inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
