@@ -292,3 +292,151 @@ p {
   justify-content: space-between;
   height: 60px;
 }
+
+/* ── Scroll-reveal hero (framer-motion) ──────────────────────────────────── */
+.scroll-hero {
+  height: 58rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 0.5rem;
+  background: linear-gradient(180deg, var(--sand) 0%, var(--bg) 70%);
+}
+.scroll-hero-inner {
+  padding: 2.5rem 0;
+  width: 100%;
+  position: relative;
+}
+.scroll-hero-header {
+  max-width: 64rem;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 1.25rem;
+}
+.scroll-card {
+  max-width: 64rem;
+  margin: 1.5rem auto 0;
+  height: 30rem;
+  width: 100%;
+  border: 5px solid #cbb89a;            /* warm sand bezel */
+  padding: 0.5rem;
+  background: #2b2a26;                    /* warm charcoal frame */
+  border-radius: 30px;
+}
+.scroll-card-inner {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 18px;
+  background: var(--surface);
+}
+@media (min-width: 768px) {
+  .scroll-hero {
+    height: 80rem;
+    padding: 5rem;
+  }
+  .scroll-hero-inner {
+    padding: 10rem 0;
+  }
+  .scroll-card {
+    height: 40rem;
+    padding: 1rem;
+  }
+}
+
+/* ── Hero calendar preview ───────────────────────────────────────────────── */
+.hero-cal {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1rem, 3vw, 2rem);
+}
+.hero-cal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.hero-cal-title {
+  font-family: Georgia, serif;
+  font-size: clamp(1.2rem, 3vw, 1.9rem);
+  color: var(--fg);
+  font-weight: 600;
+}
+.hero-cal-legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.hero-cal-legend .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--sage);
+  display: inline-block;
+}
+.hero-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: clamp(4px, 1vw, 10px);
+}
+.hero-cal-weekdays {
+  margin-bottom: clamp(4px, 1vw, 10px);
+}
+.hero-cal-weekday {
+  text-align: center;
+  color: var(--muted);
+  font-size: clamp(0.7rem, 1.6vw, 0.95rem);
+  font-weight: 600;
+}
+.hero-cal-cell {
+  flex: 1;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #faf8f3;
+  border: 1px solid var(--border);
+  color: var(--fg);
+  font-size: clamp(0.8rem, 2vw, 1.15rem);
+}
+.hero-cal-cell.empty {
+  background: transparent;
+  border: none;
+}
+.hero-cal-cell.free {
+  background: color-mix(in srgb, var(--sage) 16%, #fff);
+  border-color: var(--sage);
+  color: var(--sage-dark);
+  font-weight: 600;
+}
+.hero-cal-cell.today {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  font-weight: 700;
+}
+
+/* Hero title (inside the scroll-reveal header) */
+.hero-title h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  max-width: 20ch;
+  margin: 0 auto 0.5em;
+}
+.hero-title p {
+  font-size: 1.15rem;
+  color: var(--muted);
+  max-width: 56ch;
+  margin: 0 auto 1.25em;
+}
+.hero-title .cta {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}

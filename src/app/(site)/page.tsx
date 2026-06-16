@@ -1,23 +1,29 @@
 import Link from "next/link";
 import { site, treatments, values } from "@/content/site";
+import { ContainerScroll } from "@/components/ui/container-scroll-animation";
+import HeroCalendar from "@/components/HeroCalendar";
 
 export default function Home() {
   return (
     <>
-      <section className="hero">
-        <div className="container">
-          <h1>{site.tagline}</h1>
-          <p>{site.intro}</p>
-          <div className="cta">
-            <Link href="/contact" className="btn btn-primary">
-              קביעת פגישה
-            </Link>
-            <Link href="/treatments" className="btn btn-ghost">
-              לסוגי הטיפולים
-            </Link>
+      <ContainerScroll
+        titleComponent={
+          <div className="hero-title">
+            <h1>{site.tagline}</h1>
+            <p>{site.intro}</p>
+            <div className="cta">
+              <Link href="/contact" className="btn btn-primary">
+                קביעת פגישה
+              </Link>
+              <Link href="/treatments" className="btn btn-ghost">
+                לסוגי הטיפולים
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        }
+      >
+        <HeroCalendar />
+      </ContainerScroll>
 
       <section className="section">
         <div className="container">
