@@ -9,7 +9,10 @@ import { bookAppointmentTool } from "./book-appointment";
 import { cancelAppointmentTool } from "./cancel-appointment";
 import { joinWaitlistTool } from "./waitlist";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// Tools have heterogeneous input types, so the registry erases the input type
+// (the engine narrows each tool's input when it executes). `any` is required
+// here because specific input types are not bivariantly assignable to a shared
+// generic; the surrounding code remains fully typed.
 export const TOOLS: Tool<any>[] = [
   centerInfoTool,
   checkAvailabilityTool,

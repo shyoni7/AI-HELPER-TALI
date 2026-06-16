@@ -16,7 +16,7 @@
     "db:seed": "node --env-file=.env scripts/seed.mjs"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.70.0",
+    "@anthropic-ai/sdk": "^0.104.2",
     "next": "^15.5.0",
     "pg": "^8.13.0",
     "react": "^19.0.0",
