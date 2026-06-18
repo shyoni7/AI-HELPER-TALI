@@ -22,7 +22,7 @@ export default function SiteHeader() {
               {l.label}
             </Link>
           ))}
-          <Link href="/contact" className="btn btn-primary" style={{ padding: "0.5rem 1rem" }}>
+          <Link href="/#booking" className="btn btn-primary" style={{ padding: "0.5rem 1rem" }}>
             קביעת פגישה
           </Link>
         </nav>

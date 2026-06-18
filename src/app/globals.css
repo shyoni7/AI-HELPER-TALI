@@ -566,3 +566,19 @@ p {
   padding: 1rem;
   color: var(--sage-dark);
 }
+
+/* ── Dedicated booking section (always-flat, immediately usable) ─────────── */
+html { scroll-behavior: smooth; }
+#booking { scroll-margin-top: 80px; }
+.booking-shell {
+  margin-top: 1.25rem;
+  height: 38rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+@media (max-width: 768px) {
+  .booking-shell { height: auto; min-height: 44rem; }
+}

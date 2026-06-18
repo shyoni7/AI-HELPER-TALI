@@ -12,7 +12,7 @@ export default function Home() {
             <h1>{site.tagline}</h1>
             <p>{site.intro}</p>
             <div className="cta">
-              <Link href="/contact" className="btn btn-primary">
+              <Link href="#booking" className="btn btn-primary">
                 קביעת פגישה
               </Link>
               <Link href="/treatments" className="btn btn-ghost">
@@ -24,6 +24,19 @@ export default function Home() {
       >
         <BookingCalendar />
       </ContainerScroll>
+
+      <section className="section" id="booking">
+        <div className="container">
+          <h2>קביעת פגישה אונליין</h2>
+          <p style={{ color: "var(--muted)", maxWidth: "60ch" }}>
+            בחרו תאריך, מטפל/ת ושעה — והבקשה תועבר לאישור הצוות. אפשר גם לבחור
+            &quot;כל מטפל מתאים&quot; ונשבץ עבורכם.
+          </p>
+          <div className="booking-shell">
+            <BookingCalendar />
+          </div>
+        </div>
+      </section>
 
       <section className="section">
         <div className="container">
