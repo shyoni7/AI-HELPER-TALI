@@ -5,7 +5,7 @@
  * pool across warm starts instead of opening a new connection per request.
  */
 import { Pool, type QueryResultRow } from "pg";
-import { getEnv } from "./env";
+import { databaseUrl } from "./env";
 
 declare global {
   // eslint-disable-next-line no-var
@@ -13,13 +13,13 @@ declare global {
 }
 
 function createPool(): Pool {
-  const { DATABASE_URL } = getEnv();
-  if (!DATABASE_URL) {
+  const url = databaseUrl();
+  if (!url) {
     // Callers wrap DB access in try/catch and degrade (e.g. placeholder data).
     throw new Error("DATABASE_URL is not configured");
   }
   return new Pool({
-    connectionString: DATABASE_URL,
+    connectionString: url,
     // Keep the pool small — serverless functions are short-lived and the
     // managed Postgres pooler does the heavy lifting.
     max: 5,

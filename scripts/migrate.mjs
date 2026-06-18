@@ -14,7 +14,7 @@ import pg from "pg";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 async function main() {
-  const url = process.env.DATABASE_URL;
+  const url = process.env.DATABASE_URL || process.env.POSTGRES_URL || process.env.POSTGRES_URL_NON_POOLING;
   if (!url) {
     console.error("DATABASE_URL is not set.");
     process.exit(1);

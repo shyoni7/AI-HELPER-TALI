@@ -15,6 +15,10 @@ const schema = z.object({
   ANTHROPIC_MODEL: z.string().default("claude-opus-4-8"),
 
   DATABASE_URL: z.string().optional(),
+  // Vercel Postgres / Neon inject these names. We accept any of them so
+  // connecting a Vercel Postgres store "just works" without manual aliasing.
+  POSTGRES_URL: z.string().optional(),
+  POSTGRES_URL_NON_POOLING: z.string().optional(),
 
   // Secret used to sign staff session tokens (HMAC). Required for the staff area.
   AUTH_SECRET: z.string().optional(),
@@ -64,6 +68,12 @@ export function getEnv(): Env {
   cached = parsed.data;
   return cached;
 }
+
+/** Resolve a Postgres connection string from any supported env var name. */
+export const databaseUrl = (): string | undefined => {
+  const e = getEnv();
+  return e.DATABASE_URL ?? e.POSTGRES_URL ?? e.POSTGRES_URL_NON_POOLING;
+};
 
 export const allowedOrigins = (): string[] =>
   getEnv()
