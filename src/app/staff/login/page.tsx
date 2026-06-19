@@ -115,7 +115,7 @@ export default function StaffLoginPage() {
         )}
 
         {msg && <p style={{ color: "var(--sage-dark)", marginTop: "0.75rem" }}>{msg}</p>}
-        {error && <p style={{ color: "var(--accent)", marginTop: "0.75rem" }}>{error}</p>}
+        {error && <p style={{ color: "var(--destructive)", marginTop: "0.75rem" }}>{error}</p>}
       </div>
     </div>
   );

@@ -1,19 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap');
+
 /* ─────────────────────────────────────────────────────────────────────────
-   AI-HELPER-TALI — design system (M1)
-   Direction: clean & warm (therapeutic). Calm sage + sand, soft type.
+   AI-HELPER-TALI — design system
+   Direction: calming wellness — lavender + wellness green, soft neumorphic
+   depth, Lora/Raleway type. (ui-ux-pro-max recommendation.)
    ───────────────────────────────────────────────────────────────────────── */
 :root {
-  --bg: #f6f3ec;
+  --bg: #faf5ff;
   --surface: #ffffff;
-  --fg: #2b2a26;
-  --muted: #6f6a60;
-  --sage: #6f8c7a;
-  --sage-dark: #557064;
-  --sand: #e9e2d3;
-  --accent: #b5654a;
-  --border: #e2dccf;
-  --radius: 14px;
-  --shadow: 0 6px 24px rgba(60, 50, 40, 0.08);
+  --fg: #4c1d95;
+  --muted: #6d5f87;
+  --primary: #8b5cf6;        /* brand / links / focus ring */
+  --primary-dark: #7c3aed;
+  /* legacy names retained, remapped to the new palette */
+  --sage: #059669;           /* primary CTA — wellness green */
+  --sage-dark: #047857;
+  --sand: #ede9fe;           /* soft lavender surfaces */
+  --accent: #8b5cf6;         /* purple accent (today, focus) */
+  --destructive: #dc2626;
+  --border: #e4dcf7;
+  --radius: 16px;
+  --shadow: 6px 6px 16px rgba(124, 58, 237, 0.10), -6px -6px 16px rgba(255, 255, 255, 0.9);
   --max: 1080px;
 }
 
@@ -27,21 +34,21 @@ body {
   padding: 0;
   background: var(--bg);
   color: var(--fg);
-  font-family: "Segoe UI", system-ui, "Helvetica Neue", Arial, sans-serif;
+  font-family: "Raleway", system-ui, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   line-height: 1.65;
 }
 
 h1,
 h2,
 h3 {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "Lora", Georgia, "Times New Roman", serif;
   line-height: 1.25;
   color: var(--fg);
   margin: 0 0 0.5em;
 }
 
 a {
-  color: var(--sage-dark);
+  color: var(--primary);
   text-decoration: none;
 }
 a:hover {
@@ -101,10 +108,10 @@ p {
   height: 64px;
 }
 .brand {
-  font-family: Georgia, serif;
+  font-family: "Lora", Georgia, serif;
   font-size: 1.3rem;
   font-weight: 600;
-  color: var(--sage-dark);
+  color: var(--primary);
 }
 .brand:hover {
   text-decoration: none;
@@ -241,7 +248,7 @@ p {
 }
 .bubble.bot {
   align-self: stretch;
-  background: #f4f1ea;
+  background: #f5f0ff;
   border: 1px solid var(--border);
 }
 .chat-input {
@@ -319,9 +326,9 @@ p {
   margin: 1.5rem auto 0;
   height: 30rem;
   width: 100%;
-  border: 5px solid #cbb89a;            /* warm sand bezel */
+  border: 5px solid #c4b5fd;            /* lavender bezel */
   padding: 0.5rem;
-  background: #2b2a26;                    /* warm charcoal frame */
+  background: #2e1065;                    /* deep-purple frame */
   border-radius: 30px;
 }
 .scroll-card-inner {
@@ -401,7 +408,7 @@ p {
   align-items: center;
   justify-content: center;
   border-radius: 12px;
-  background: #faf8f3;
+  background: #f7f3ff;
   border: 1px solid var(--border);
   color: var(--fg);
   font-size: clamp(0.8rem, 2vw, 1.15rem);
@@ -495,7 +502,7 @@ p {
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  background: #faf8f3;
+  background: #f7f3ff;
   border: 1px solid var(--border);
   color: var(--fg);
   font-size: clamp(0.75rem, 1.8vw, 1rem);
@@ -557,7 +564,7 @@ p {
   margin: 0.3rem 0 0.75rem;
 }
 .bk-actions { display: flex; gap: 0.5rem; }
-.bk-error { color: var(--accent); margin-top: 0.5rem; }
+.bk-error { color: var(--destructive); margin-top: 0.5rem; }
 .bk-fineprint { font-size: 0.78rem; color: var(--muted); margin-top: 0.6rem; }
 .bk-done {
   background: color-mix(in srgb, var(--sage) 12%, #fff);
@@ -581,4 +588,31 @@ html { scroll-behavior: smooth; }
 }
 @media (max-width: 768px) {
   .booking-shell { height: auto; min-height: 44rem; }
+}
+
+/* ── Accessibility (ui-ux-pro-max checklist) ─────────────────────────────── */
+/* Visible focus ring for keyboard users on all interactive elements. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.btn:focus-visible,
+.bk-cell:focus-visible,
+.bk-chip:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Respect users who prefer reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
